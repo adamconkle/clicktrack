@@ -15,24 +15,32 @@ const loopEnabled = document.getElementById("loopEnabled");
 const visuals = document.getElementById("visuals");
 const flash = document.getElementById("flash");
 
-// Clean woodblock click
-const woodblockBase64 = "https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3";
-// Clean rimshot click (accent)
-const rimshotBase64 = "UklGRhYAAABXQVZFZm10IBAAAAABAAEAIlYAABFzAAACABAAZGF0YQAAAAA=";
+// Clean woodblock click (external URL)
+const woodblockUrl = "https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3";
 
-async function base64ToBuffer(base64) {
-  const binary = atob(base64);
-  const len = binary.length;
-  const buffer = new Uint8Array(len);
-  for (let i = 0; i < len; i++) buffer[i] = binary.charCodeAt(i);
-  return await audioCtx.decodeAudioData(buffer.buffer);
-}
+// Clean rimshot click (external URL)
+const rimshotUrl = "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3";
 
-let regularClick, accentClick;
+// Example of how to use them
+const playWoodblock = () => {
+    const audio = new Audio(woodblockUrl);
+    audio.play();
+};
+
+const playRimshot = () => {
+    const audio = new Audio(rimshotUrl);
+    audio.play();
+};
 
 async function loadSounds() {
-  regularClick = await base64ToBuffer(woodblockBase64);
-  accentClick = await base64ToBuffer(rimshotBase64);
+  regularClick = await loadAudioBuffer(woodblockUrl);
+  accentClick = await loadAudioBuffer(rimshotUrl);
+}
+
+async function loadAudioBuffer(url) {
+  const response = await fetch(url);
+  const arrayBuffer = await response.arrayBuffer();
+  return await audioCtx.decodeAudioData(arrayBuffer);
 }
 
 function playClick(accent) {
