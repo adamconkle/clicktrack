@@ -12,15 +12,15 @@ const loopEnabled = document.getElementById("loopEnabled");
 const visuals = document.getElementById("visuals");
 const flash = document.getElementById("flash");
 
-// Clean woodblock click (external URL)
-const woodblockUrl = "https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3";
+// Base64-encoded woodblock click (replace with actual base64 data)
+const woodblockBase64 = "data:audio/mp3;base64,SUQzBAAAAAAAI1Nvbm..."; // Replace with full base64 string for the woodblock click sound
 
-// Clean rimshot click (external URL)
-const rimshotUrl = "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3";
+// Base64-encoded rimshot click (replace with actual base64 data)
+const rimshotBase64 = "data:audio/mp3;base64,SUQzBAAAAAAAI1Nvbm..."; // Replace with full base64 string for the rimshot click sound
 
-// Function to load audio buffers
-async function loadAudioBuffer(url) {
-  const response = await fetch(url);
+// Function to load audio buffers from base64 data
+async function loadAudioBuffer(base64) {
+  const response = await fetch(base64);
   const arrayBuffer = await response.arrayBuffer();
   return await audioCtx.decodeAudioData(arrayBuffer);
 }
@@ -32,8 +32,8 @@ async function loadSounds() {
   }
 
   try {
-    regularClick = await loadAudioBuffer(woodblockUrl);
-    accentClick = await loadAudioBuffer(rimshotUrl);
+    regularClick = await loadAudioBuffer(woodblockBase64);
+    accentClick = await loadAudioBuffer(rimshotBase64);
     console.log("Sounds loaded successfully");
   } catch (error) {
     console.error("Error loading sounds:", error);
