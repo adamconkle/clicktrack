@@ -9,22 +9,27 @@
 <body>
   <h1>🎧 Pro Click Track</h1>
   <p>
-    BPM: <input type="number" id="bpm" min="30" max="300"><br>
-    Time Signature: 
-    <select id="beatsPerMeasure">
-      <option value="4">4/4</option>
-      <option value="3">3/4</option>
-      <option value="6">6/8</option>
-    </select><br>
-    Subdivision: 
-    <select id="subdivision">
-      <option value="1">Quarter Notes</option>
-      <option value="2">Eighth Notes</option>
-      <option value="4">Sixteenth Notes</option>
-    </select><br>
-    Volume: <input type="range" id="volume" min="0" max="1" step="0.01" class="slider"><br>
-    Loop (Intro Bars): <input type="number" id="loopBars" value="2" min="1" max="16">
-  </p>
+  BPM: <input type="number" id="bpm" min="30" max="300"><br>
+  Time Signature: 
+  <select id="beatsPerMeasure">
+    <option value="4">4/4</option>
+    <option value="3">3/4</option>
+    <option value="6">6/8</option>
+  </select><br>
+  Subdivision: 
+  <select id="subdivision">
+    <option value="1">Quarter Notes</option>
+    <option value="2">Eighth Notes</option>
+    <option value="4">Sixteenth Notes</option>
+  </select><br>
+  Volume: <input type="range" id="volume" min="0" max="1" step="0.01" class="slider"><br>
+  Loop (Intro Bars): <input type="number" id="loopBars" value="2" min="1" max="16"><br>
+  <label>
+    <input type="checkbox" id="loopEnabled" checked>
+    Enable Loop
+  </label>
+</p>
+
 
   <button id="start">Start</button>
   <button id="stop">Stop</button>
