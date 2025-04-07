@@ -18,6 +18,20 @@ const visuals = document.getElementById("visuals");
 const highClickBase64 = "metronome-85688.mp3";
 const lowClickBase64 = "rimshot-sweet-107111.mp3";
 
+
+// ADDED TO PLAY MP3 INSTEAD OF BASE64
+async function loadAudioBuffer(url) {
+  const response = await fetch(url);
+  const arrayBuffer = await response.arrayBuffer();
+  return await audioCtx.decodeAudioData(arrayBuffer);
+}
+
+async function loadSounds() {
+  regularClick = await loadAudioBuffer(lowClickUrl);
+  accentClick = await loadAudioBuffer(highClickUrl);
+}
+
+
 /* CONVERTS BASE64 TO AUDIO BUFFER
 async function base64ToBuffer(base64) {
   const binary = atob(base64);
