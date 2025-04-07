@@ -3,6 +3,9 @@ let regularClick, accentClick;
 let isPlaying = false;
 let intervalId;
 
+let lastTapTime = 0;  // Variable to store the last tap time
+let tapCount = 0;     // Count the number of taps
+
 const bpmInput = document.getElementById("bpm");
 const beatsPerMeasureInput = document.getElementById("beatsPerMeasure");
 const subdivisionInput = document.getElementById("subdivision");
@@ -13,8 +16,8 @@ const visuals = document.getElementById("visuals");
 const flash = document.getElementById("flash");
 
 // URL for the MP3 file hosted on GitHub
-const woodblockUrl = "metronome-85688.mp3"; // Replace with your actual URL
-const rimshotUrl = "rimshot-sweet-107111.mp3"; // Replace with your actual URL
+const woodblockUrl = "https://raw.githubusercontent.com/your-username/your-repo-name/main/sounds/woodblock.mp3"; // Replace with your actual URL
+const rimshotUrl = "https://raw.githubusercontent.com/your-username/your-repo-name/main/sounds/rimshot.mp3"; // Replace with your actual URL
 
 // Function to load audio buffers from a URL
 async function loadAudioBuffer(url) {
@@ -78,6 +81,22 @@ function stopClickTrack() {
   }
 }
 
+// Tap tempo functionality
+function tapTempoFunction() {
+  const currentTime = Date.now();  // Get the current time in milliseconds
+  const timeDiff = currentTime - lastTapTime;  // Time difference between taps
+
+  if (timeDiff > 0 && timeDiff < 2000) { // Avoid too long intervals
+    tapCount++;
+
+    const newBpm = Math.round(60000 / timeDiff);  // Calculate BPM from the time difference
+    bpmInput.value = newBpm;  // Update the BPM input field with the new value
+    console.log(`New BPM: ${newBpm}`);
+  }
+
+  lastTapTime = currentTime;  // Store the current time for the next tap
+}
+
 // Add event listeners to buttons
 document.getElementById('start').addEventListener('click', async () => {
   console.log("Start button clicked");
@@ -101,7 +120,5 @@ document.getElementById('save').addEventListener('click', () => {
   console.log("Settings saved");
 });
 
-document.getElementById('tapTempo').addEventListener('click', () => {
-  // Add tap tempo functionality here
-  console.log("Tap tempo functionality goes here");
-});
+// Tap tempo button logic
+document.getElementById('tapTempo').addEventListener('click', tapTempoFunction);
