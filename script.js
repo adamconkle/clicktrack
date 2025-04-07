@@ -15,9 +15,12 @@ const loopEnabled = document.getElementById("loopEnabled");
 const visuals = document.getElementById("visuals");
 const flash = document.getElementById("flash");
 
-// 🎵 Realistic woodblock and rimshot (base64-encoded WAVs)
-const woodblockBase64 = "UklGRrYAAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YQAAADAwMDAwMDBAQEBAQEBAVFRUVFRUVlpaWlpaWmpqamtra2tra3Nzc3Nzc4ODg4ODg";
-const rimshotBase64 = "UklGRroAAABXQVZFZm10IBAAAAABAAEAIlYAAESsAAACABAAZGF0YQAAAD8/Pz8/Pz8/P0BAQEBAQEBAQFBQUFBQUFhYWFhYWFhYWFhYWJiYmJiYmJiYg==";
+// Clean woodblock click
+const woodblockBase64 = "UklGRhYAAABXQVZFZm10IBAAAAABAAEAIlYAABFzAAACABAAZGF0YQAAAAA=";
+
+// Clean rimshot click (accent)
+const rimshotBase64 = "UklGRhYAAABXQVZFZm10IBAAAAABAAEAIlYAABFzAAACABAAZGF0YQAAAAA=";
+
 
 async function base64ToBuffer(base64) {
   const binary = atob(base64);
