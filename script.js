@@ -14,7 +14,7 @@ const flash = document.getElementById("flash");
 
 // URL for the MP3 file hosted on GitHub
 const woodblockUrl = "metronome-85688.mp3"; // Replace with your actual URL
-const rimshotUrl = "metronome-85688.mp3"; // Replace with your actual URL
+const rimshotUrl = "rimshot-sweet-107111.mp3"; // Replace with your actual URL
 
 // Function to load audio buffers from a URL
 async function loadAudioBuffer(url) {
