@@ -15,8 +15,8 @@ const loopEnabled = document.getElementById("loopEnabled");
 const visuals = document.getElementById("visuals");
 
 // Audio files (replace with your actual base64 or URLs)
-const woodblockUrl = "https://raw.githubusercontent.com/your-username/your-repo-name/main/sounds/woodblock.mp3"; 
-const rimshotUrl = "https://raw.githubusercontent.com/your-username/your-repo-name/main/sounds/rimshot.mp3"; 
+const woodblockUrl = "metronome-85688.mp3"; 
+const rimshotUrl = "rimshot-sweet-107111.mp3"; 
 
 // Function to load audio buffers from a URL
 async function loadAudioBuffer(url) {
