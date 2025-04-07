@@ -1,10 +1,7 @@
-let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let audioCtx;
 let regularClick, accentClick;
 let isPlaying = false;
-let beatCounter = 0;
-let subCounter = 0;
-let barsPlayed = 0;
-let tapTimes = [];
+let intervalId;
 
 const bpmInput = document.getElementById("bpm");
 const beatsPerMeasureInput = document.getElementById("beatsPerMeasure");
@@ -30,6 +27,10 @@ async function loadAudioBuffer(url) {
 
 // Load the sounds on page load or on button click
 async function loadSounds() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
   regularClick = await loadAudioBuffer(woodblockUrl);
   accentClick = await loadAudioBuffer(rimshotUrl);
 }
@@ -45,7 +46,7 @@ function playClick(accent) {
   source.buffer = accent ? accentClick : regularClick;
 
   const gain = audioCtx.createGain();
-  gain.gain.value = volumeInput.value / 100; // Volume between 0 and 1
+  gain.gain.value = volumeInput.value; // Volume between 0 and 1
 
   source.connect(gain);
   gain.connect(audioCtx.destination);
@@ -56,6 +57,13 @@ function playClick(accent) {
 // Add event listeners to buttons
 document.getElementById('start').addEventListener('click', async () => {
   await loadSounds();  // Load sounds when start is clicked
+  
+  // Allow AudioContext to start with user interaction
+  if (audioCtx.state === 'suspended') {
+    await audioCtx.resume();
+  }
+
+  isPlaying = true;
   playClick(false);  // Play regular click when start is pressed
 });
 
