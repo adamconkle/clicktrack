@@ -4,7 +4,6 @@ body {
   color: #f0f0f0;
   text-align: center;
   padding-top: 30px;
-  overflow-x: hidden;
 }
 
 input, select, button {
@@ -36,32 +35,9 @@ input, select, button {
 }
 
 .active.accent {
-  background-color: #b84eff;
+  background-color: #ff4081;
 }
 
 .active.regular {
   background-color: #66bb6a;
-}
-
-/* 🔦 Full-screen beat flash */
-#flash {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 999;
-  opacity: 0;
-  transition: opacity 0.2s ease-out;
-}
-
-.flash-accent {
-  background-color: rgba(184, 78, 255, 0.4);
-  opacity: 1;
-}
-
-.flash-regular {
-  background-color: rgba(102, 187, 106, 0.3);
-  opacity: 1;
 }
