@@ -14,10 +14,11 @@ const loopBarsInput = document.getElementById("loopBars");
 const loopEnabled = document.getElementById("loopEnabled");
 const visuals = document.getElementById("visuals");
 
-// 🎧 Click sounds (simple tones for now)
+// 🎧 Click sounds (simple tones for now)   BASE64 AUDIO DATA RENAMED TO HAVE MP3-- IS THIS RIGHT?
 const highClickBase64 = "metronome-85688.mp3";
 const lowClickBase64 = "rimshot-sweet-107111.mp3";
 
+/* CONVERTS BASE64 TO AUDIO BUFFER
 async function base64ToBuffer(base64) {
   const binary = atob(base64);
   const len = binary.length;
@@ -25,14 +26,16 @@ async function base64ToBuffer(base64) {
   for (let i = 0; i < len; i++) buffer[i] = binary.charCodeAt(i);
   return await audioCtx.decodeAudioData(buffer.buffer);
 }
+*/
 
 let regularClick, accentClick;
 
+/* LOADS THE SOUNDS WITH BASE64 
 async function loadSounds() {
   regularClick = await base64ToBuffer(lowClickBase64);
   accentClick = await base64ToBuffer(highClickBase64);
 }
-
+*/
 function playClick(accent) {
   const source = audioCtx.createBufferSource();
   source.buffer = accent ? accentClick : regularClick;
