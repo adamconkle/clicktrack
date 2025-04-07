@@ -31,8 +31,13 @@ async function loadSounds() {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   }
 
-  regularClick = await loadAudioBuffer(woodblockUrl);
-  accentClick = await loadAudioBuffer(rimshotUrl);
+  try {
+    regularClick = await loadAudioBuffer(woodblockUrl);
+    accentClick = await loadAudioBuffer(rimshotUrl);
+    console.log("Sounds loaded successfully");
+  } catch (error) {
+    console.error("Error loading sounds:", error);
+  }
 }
 
 // Play the regular or accent click sound
@@ -54,25 +59,43 @@ function playClick(accent) {
   source.start();
 }
 
+// Function to start the click track
+function startClickTrack() {
+  if (!isPlaying) {
+    isPlaying = true;
+    playClick(false);  // Play regular click when track starts
+
+    intervalId = setInterval(() => {
+      playClick(false); // Play regular click
+    }, (60 / bpmInput.value) * 1000); // Adjust interval based on BPM
+  }
+}
+
+// Function to stop the click track
+function stopClickTrack() {
+  if (isPlaying) {
+    clearInterval(intervalId); // Stop the interval
+    isPlaying = false;
+    console.log("Click track stopped");
+  }
+}
+
 // Add event listeners to buttons
 document.getElementById('start').addEventListener('click', async () => {
+  console.log("Start button clicked");
   await loadSounds();  // Load sounds when start is clicked
-  
+
   // Allow AudioContext to start with user interaction
   if (audioCtx.state === 'suspended') {
     await audioCtx.resume();
   }
 
-  isPlaying = true;
-  playClick(false);  // Play regular click when start is pressed
+  startClickTrack(); // Start the click track
 });
 
 document.getElementById('stop').addEventListener('click', () => {
-  // Stop the current track (you can add stop logic here)
-  if (intervalId) {
-    clearInterval(intervalId);
-    isPlaying = false;
-  }
+  console.log("Stop button clicked");
+  stopClickTrack(); // Stop the click track
 });
 
 document.getElementById('save').addEventListener('click', () => {
