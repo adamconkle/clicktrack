@@ -144,6 +144,8 @@ document.getElementById("tapTempo").addEventListener("click", () => {
 loadSettings();
 loadSounds();
 
+
+/* below code messed up visuals
 ---------
 
 let audioCtx;
@@ -270,3 +272,4 @@ document.getElementById('save').addEventListener('click', () => {
 
 // Tap tempo button logic
 document.getElementById('tapTempo').addEventListener('click', tapTempoFunction);
+*/
