@@ -16,10 +16,10 @@ const visuals = document.getElementById("visuals");
 const flash = document.getElementById("flash");
 
 // Clean woodblock click (external URL)
-const woodblockUrl = "metronome-85688.mp3";
+const woodblockUrl = "https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3";
 
 // Clean rimshot click (external URL)
-const rimshotUrl = "rimshot-sweet-107111.mp3";
+const rimshotUrl = "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3";
 
 // Example of how to use them
 const playWoodblock = () => {
