@@ -1,5 +1,5 @@
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-let intervalId;
+let regularClick, accentClick;
 let isPlaying = false;
 let beatCounter = 0;
 let subCounter = 0;
@@ -21,42 +21,58 @@ const woodblockUrl = "https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3";
 // Clean rimshot click (external URL)
 const rimshotUrl = "https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3";
 
-// Example of how to use them
-const playWoodblock = () => {
-    const audio = new Audio(woodblockUrl);
-    audio.play();
-};
-
-const playRimshot = () => {
-    const audio = new Audio(rimshotUrl);
-    audio.play();
-};
-
-async function loadSounds() {
-  regularClick = await loadAudioBuffer(woodblockUrl);
-  accentClick = await loadAudioBuffer(rimshotUrl);
-}
-
+// Function to load audio buffers
 async function loadAudioBuffer(url) {
   const response = await fetch(url);
   const arrayBuffer = await response.arrayBuffer();
   return await audioCtx.decodeAudioData(arrayBuffer);
 }
 
+// Load the sounds on page load or on button click
+async function loadSounds() {
+  regularClick = await loadAudioBuffer(woodblockUrl);
+  accentClick = await loadAudioBuffer(rimshotUrl);
+}
+
+// Play the regular or accent click sound
 function playClick(accent) {
+  if (!audioCtx || !regularClick || !accentClick) {
+    console.error("Audio context or sounds not loaded yet");
+    return;
+  }
+
   const source = audioCtx.createBufferSource();
   source.buffer = accent ? accentClick : regularClick;
 
   const gain = audioCtx.createGain();
-  gain.gain.value = volumeInput.value / 100; // Ensure volume is between 0 and 1
+  gain.gain.value = volumeInput.value / 100; // Volume between 0 and 1
 
   source.connect(gain);
-  gain.connect(audioCtx.destination); // Connect to the audio context destination
+  gain.connect(audioCtx.destination);
 
   source.start();
 }
 
-document.getElementById('startButton').addEventListener('click', async () => {
-  await loadSounds();
-  playClick(false);  // Example: Play regular click when button is pressed
+// Add event listeners to buttons
+document.getElementById('start').addEventListener('click', async () => {
+  await loadSounds();  // Load sounds when start is clicked
+  playClick(false);  // Play regular click when start is pressed
+});
+
+document.getElementById('stop').addEventListener('click', () => {
+  // Stop the current track (you can add stop logic here)
+  if (intervalId) {
+    clearInterval(intervalId);
+    isPlaying = false;
+  }
+});
+
+document.getElementById('save').addEventListener('click', () => {
+  // You can add save settings logic here (e.g., saving to localStorage)
+  console.log("Settings saved");
+});
+
+document.getElementById('tapTempo').addEventListener('click', () => {
+  // Add tap tempo functionality here
+  console.log("Tap tempo functionality goes here");
 });
